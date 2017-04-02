@@ -5,7 +5,20 @@
 	<title>Magic 8 Ball Knows All</title>
 	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/flatly/bootstrap.min.css">
 	<style type="text/css">
-		
+		.row-centered {
+		    text-align:center;
+		}
+		.col-centered {
+		    display:inline-block;
+		    float:none;
+		    text-align:left;
+		    margin-right:-4px;
+		}
+		p i {
+			background:#18bc9c; 
+			color: white;
+			padding:0 10px;
+		}
 	</style>
 	<script src="https://unpkg.com/vue@2.2.6"></script>
 	<!-- for restful calls -->
@@ -15,14 +28,19 @@
 <body>
 	<div id="app">
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 text-center">
-					<h1>Ask a Question:</h1>
-					<h3>Try Using Yes or No Questions...</h3>
-					<input type="text" v-model="question" class="form-control">
-					<br><br>
+			<div class="row row-centered">
+				<div class="col-xs-6 col-centered text-center">
+					<h1>Ask a Yes/No Question:</h1>
+					<p>Remember: questions end with a <i>?</i></p>
+					<form>
+						<div class="form-group">
+
+							<input type="text" v-model="question" class="form-control">
+						</div>
+					</form>
+					<br>
 					<h2>{{answer}}</h2>
-					<img v-bind:src="image" />
+					<img v-bind:src="image" class="img-responsive" />
 					<!-- <input type="submit" v-model="submit" name=""> -->
 				</div>
 			</div>
