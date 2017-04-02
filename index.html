@@ -7,7 +7,7 @@
 	<style type="text/css">
 		
 	</style>
-	<script src="https://unpkg.com/vue"></script>
+	<script src="https://unpkg.com/vue@2.2.6"></script>
 	<!-- for restful calls -->
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/lodash@4.17.4/lodash.min.js"></script>
@@ -16,7 +16,7 @@
 	<div id="app">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 text-center">
+				<div class="col-sm-12 text-center">
 					<h1>Ask a Question:</h1>
 					<h3>Try Using Yes or No Questions...</h3>
 					<input type="text" v-model="question" class="form-control">
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<script>
-		let app = new Vue({
+		var app = new Vue({
 			el: '#app',
 			data: {
 				question: '',
@@ -47,7 +47,7 @@
 					function() {
 						let vm = this;
 						if(this.question.indexOf('?') === -1) {
-							vm.answer = 'Please use a question mark "?" :D';
+							vm.answer = 'Please end with a question mark ?';
 							return;
 						}
 						vm.answer = 'Thinking...';
@@ -60,7 +60,7 @@
 							vm.answer = 'Error:'+" "+err;
 						})
 					}, 500
-					)
+				)
 			}		
 		});
 	</script>
