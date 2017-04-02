@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Magic 8 Ball Knows All</title>
+	<link rel="stylesheet" type="text/css" href="http://bootswatch.com/flatly/bootstrap.min.css">
+	<style type="text/css">
+		
+	</style>
+	<script src="https://unpkg.com/vue"></script>
+	<!-- for restful calls -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/lodash@4.17.4/lodash.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<h1>Ask a Question:</h1>
+					<h3>Try Using Yes or No Questions...</h3>
+					<input type="text" v-model="question" class="form-control">
+					<br><br>
+					<h2>{{answer}}</h2>
+					<img v-bind:src="image" />
+					<!-- <input type="submit" v-model="submit" name=""> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		let app = new Vue({
+			el: '#app',
+			data: {
+				question: '',
+				answer: '',
+				image: ''
+			},
+			watch: {
+				question: function(newQuestion) {
+					this.answer = 'waiting for you to stop typing';
+					this.getAnswer();
+				}
+			},
+			methods: {
+				getAnswer: _.debounce(
+					function() {
+						let vm = this;
+						if(this.question.indexOf('?') === -1) {
+							vm.answer = 'Please use a question mark "?" :D';
+							return;
+						}
+						vm.answer = 'Thinking...';
+						axios.get('https://yesno.wtf/api') 
+						.then(function(response) {
+							vm.answer = _.capitalize(response.data.answer);
+							vm.image = response.data.image;
+						})
+						.catch(function(err) {
+							vm.answer = 'Error:'+" "+err;
+						})
+					}, 500
+					)
+			}		
+		});
+	</script>
+</body>
+</html>
